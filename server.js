@@ -5,51 +5,58 @@ const path = require("path");
 const { Worker, isMainThread, parentPort } = require("worker_threads");
 const os = require("os");
 
-const numCPUs = os.cpus().length;
+// const numCPUs = os.cpus().length;
 
 app.use(express.static("public"));
 app.use(express.json());
 
-function performCpuIntensiveTask() {
-  let sum = 0;
-  for (let i = 0; i < 1e10; i++) {
-    console.log(i);
-    sum += i;
-  }
-  return sum;
-}
-
 app.post("/api/insert", async (req, res) => {
   const data = req.body;
-  if (isMainThread) {
-    console.log(`Main thread: Spawning ${numCPUs} workers...`);
+  const numCPUs = os.cpus().length;
+  let workerPromises = [];
 
-    for (let i = 0; i < numCPUs; i++) {
-      const worker = new Worker(__filename);
+  for (let i = 0; i < numCPUs; i++) {
+    const workerPromise = new Promise((resolve, reject) => {
+      const worker = new Worker("./workerTask.js");
+
       worker.on("message", (message) => {
-        console.log(`Worker ${worker.threadId} finished: ${message}`);
+        console.log(`Worker ${worker.threadId} finished with result: ${message}`);
+        resolve(message);  // Resolve the promise when the worker sends a message
       });
-    }
-    while (true) {
-      data.forEach((element) => {
-        console.log(element);
+
+      worker.on("error", (error) => {
+        console.error(`Worker ${worker.threadId} error: ${error}`);
+        reject(error);  // Reject the promise on error
       });
-      performCpuIntensiveTask();
-    }
-  } else {
-    while (true) {
-      performCpuIntensiveTask();
-    }
+    });
+
+    workerPromises.push(workerPromise);
   }
+
   try {
+    // Wait for all worker promises to resolve
+    await Promise.all(workerPromises);
     data.forEach((element) => {
       console.log(element);
     });
-    res.json({ success: true, message: "Data inserted successfully" });
+
+    // After all workers have completed, send a response
+    res.json({ message: "All workers completed their tasks" });
+
   } catch (error) {
-    console.error("Database insertion error:", error);
-    res.status(500).json({ success: false, message: "Server error" });
+    // If any worker promise is rejected, send an error response
+    console.error("Error with worker threads:", error);
+    res.status(500).json({ success: false, message: "Server error with worker threads" });
   }
+  // try {
+  //   data.forEach((element) => {
+  //     console.log(element);
+  //   });
+  //   res.json({ success: true, message: "Data inserted successfully" });
+  // } catch (error) {
+  //   console.error("Database insertion error:", error);
+  //   res.status(500).json({ success: false, message: "Server error" });
+  // }
 });
 
 app.get("/", async (req, res) => {
