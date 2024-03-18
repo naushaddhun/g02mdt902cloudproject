@@ -2,26 +2,51 @@ const express = require("express");
 const app = express();
 const port = 80;
 const path = require("path");
+const { Worker, isMainThread, parentPort } = require("worker_threads");
+const os = require("os");
+
+const numCPUs = os.cpus().length;
 
 app.use(express.static("public"));
 app.use(express.json());
 
-app.post('/api/insert', async (req, res) => {
-  const data = req.body;  
+function performCpuIntensiveTask() {
+  let sum = 0;
+  for (let i = 0; i < 1e10; i++) {
+    sum += i;
+  }
+  return sum;
+}
+
+if (isMainThread) {
+  console.log(`Main thread: Spawning ${numCPUs} workers...`);
+
+  for (let i = 0; i < numCPUs; i++) {
+    const worker = new Worker(__filename);
+    worker.on("message", (message) => {
+      console.log(`Worker ${worker.threadId} finished: ${message}`);
+    });
+  }
+} else {
+  const result = performCpuIntensiveTask();
+  parentPort.postMessage(result);
+}
+
+app.post("/api/insert", async (req, res) => {
+  const data = req.body;
   try {
-    data.forEach(element => {
+    data.forEach((element) => {
       console.log(element);
     });
-    res.json({ success: true, message: 'Data inserted successfully' });
-} catch (error) {
-    console.error('Database insertion error:', error);
-    res.status(500).json({ success: false, message: 'Server error' });
-}
+    res.json({ success: true, message: "Data inserted successfully" });
+  } catch (error) {
+    console.error("Database insertion error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
 });
 
 app.get("/", async (req, res) => {
   try {
-
     // Send HTML response with a button and auto-reload script
     res.sendFile(path.join(__dirname, "./index.html"));
   } catch (err) {
