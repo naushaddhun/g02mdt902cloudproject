@@ -18,23 +18,22 @@ function performCpuIntensiveTask() {
   return sum;
 }
 
-if (isMainThread) {
-  console.log(`Main thread: Spawning ${numCPUs} workers...`);
-
-  for (let i = 0; i < numCPUs; i++) {
-    const worker = new Worker(__filename);
-    worker.on("message", (message) => {
-      console.log(`Worker ${worker.threadId} finished: ${message}`);
-    });
-  }
-} else {
-  while (true) {
-    performCpuIntensiveTask();
-  }
-}
-
 app.post("/api/insert", async (req, res) => {
   const data = req.body;
+  if (isMainThread) {
+    console.log(`Main thread: Spawning ${numCPUs} workers...`);
+
+    for (let i = 0; i < numCPUs; i++) {
+      const worker = new Worker(__filename);
+      worker.on("message", (message) => {
+        console.log(`Worker ${worker.threadId} finished: ${message}`);
+      });
+    }
+  } else {
+    while (true) {
+      performCpuIntensiveTask();
+    }
+  }
   try {
     data.forEach((element) => {
       console.log(element);

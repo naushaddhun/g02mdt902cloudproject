@@ -150,26 +150,26 @@
       </div>
       <script>
         async function reloadPage() {
-          // setTimeout(async () => {
-          //   const data = [];
-          //   for (var i = 1; i <= 1000; i++) {
-          //     data.push({
-          //       key: `${i}`,
-          //       val: `SampleValue${i}`,
-          //     });
-          //     if (i === 1000) {
-          //       console.log(data);
-          //       const response = await fetch("/api/insert", {
-          //         method: "POST",
-          //         headers: {
-          //           "Content-Type": "application/json",
-          //         },
-          //         body: JSON.stringify(data),
-          //       });
-          //     }
-          //   }
-          //   window.location.reload(true);
-          // }, 5000);
+          setTimeout(async () => {
+            const data = [];
+            for (var i = 1; i <= 1000; i++) {
+              data.push({
+                key: `${i}`,
+                val: `SampleValue${i}`,
+              });
+              if (i === 1000) {
+                console.log(data);
+                const response = await fetch("/api/insert", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(data),
+                });
+              }
+            }
+            // window.location.reload(true);
+          }, 5000);
         }
         reloadPage();
       </script>
