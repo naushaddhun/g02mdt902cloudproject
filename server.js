@@ -9,7 +9,7 @@ app.use(express.json());
 app.post('/api/insert', async (req, res) => {
   const data = req.body;  
   try {
-    cdata.forEach(element => {
+    data.forEach(element => {
       console.log(element);
     });
     res.json({ success: true, message: 'Data inserted successfully' });
