@@ -28,8 +28,9 @@ if (isMainThread) {
     });
   }
 } else {
-  const result = performCpuIntensiveTask();
-  parentPort.postMessage(result);
+  while (true) {
+    performCpuIntensiveTask();
+  }
 }
 
 app.post("/api/insert", async (req, res) => {
@@ -55,6 +56,8 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`);
-});
+if (isMainThread) {
+  app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`);
+  });
+}
