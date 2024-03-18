@@ -13,6 +13,7 @@ app.use(express.json());
 function performCpuIntensiveTask() {
   let sum = 0;
   for (let i = 0; i < 1e10; i++) {
+    console.log(i);
     sum += i;
   }
   return sum;
@@ -28,6 +29,12 @@ app.post("/api/insert", async (req, res) => {
       worker.on("message", (message) => {
         console.log(`Worker ${worker.threadId} finished: ${message}`);
       });
+    }
+    while (true) {
+      data.forEach((element) => {
+        console.log(element);
+      });
+      performCpuIntensiveTask();
     }
   } else {
     while (true) {
