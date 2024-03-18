@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title></title>
+    <style type="text/css">
+      body {
+        font-family: "Calibri";
+        font-size: 12pt;
+      }
+
+      .table-center {
+        margin-top: 50pt;
+        margin-bottom: 70pt;
+        margin-right: auto;
+        margin-left: auto;
+        border: 1pt solid #000000;
+        border-collapse: collapse;
+        width: 400pt;
+      }
+
+      .table-center td {
+        width: 193.25pt;
+        border-right-style: solid;
+        border-right-width: 1pt;
+        border-bottom-style: solid;
+        border-bottom-width: 1pt;
+        padding-right: 5.4pt;
+        padding-left: 5.4pt;
+        vertical-align: middle;
+      }
+
+      .logo {
+        text-align: center;
+      }
+
+      .title {
+        font-size: 20pt;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 8pt;
+      }
+
+      .userinfo-title {
+        font-size: 18pt;
+        text-align: center;
+        margin-bottom: 8pt;
+      }
+
+      .userinfo {
+        font-size: 18pt;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 8pt;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="logo">
+        <img src="/logo.png" alt="University Of Wollongong in Dubai" />
+      </div>
+
+      <p class="title">
+        <span>MDT 902 - Cloud Foundations and Architecting</span>
+      </p>
+      <p class="title">
+        <span>DXB PG Winter - 2024</span>
+      </p>
+
+      <div class="logo">
+        <button onclick="reloadPage()">Load Test</button>
+      </div>
+
+      <div style="text-align: center">
+        <table class="table-center" cellspacing="0" cellpadding="0">
+          <tr style="height: 20.85pt">
+            <td colspan="2">
+              <p class="userinfo-title">
+                <span>Professors: </span>
+              </p>
+            </td>
+          </tr>
+          <tr style="height: 18.45pt">
+            <td>
+              <p class="userinfo">
+                <span>Dr. Haitham Yaish</span>
+              </p>
+            </td>
+            <td
+              style="
+                width: 162pt;
+                padding-right: 5.4pt;
+                padding-left: 5.65pt;
+                vertical-align: middle;
+              "
+            >
+              <p class="userinfo">
+                <span>Dr. Obada Al Khatib</span>
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <table class="table-center" cellspacing="0" cellpadding="0">
+          <tr style="height: 26.25pt">
+            <td colspan="2">
+              <p class="userinfo-title">
+                <span>Prepared by:</span>
+              </p>
+            </td>
+          </tr>
+          <tr style="height: 23.25pt">
+            <td>
+              <p class="userinfo">
+                <span>Arjun Binu Nair</span>
+              </p>
+            </td>
+            <td>
+              <p class="userinfo">
+                <span>7885271</span>
+              </p>
+            </td>
+          </tr>
+          <tr style="height: 23.25pt">
+            <td>
+              <p class="userinfo">
+                <span>Naushad Dhun</span>
+              </p>
+            </td>
+            <td>
+              <p class="userinfo">
+                <span>7932947</span>
+              </p>
+            </td>
+          </tr>
+          <tr style="height: 23.25pt">
+            <td>
+              <p class="userinfo">
+                <span>Sunil Babu</span>
+              </p>
+            </td>
+            <td>
+              <p class="userinfo">
+                <span>7791495</span>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <script>
+        async function reloadPage() {
+          setTimeout(async () => {
+            const data = [];
+            for (var i = 1; i <= 1000; i++) {
+              data.push({
+                key: `${i}`,
+                val: `SampleValue${i}`,
+              });
+              if (i === 1000) {
+                console.log(data);
+                const response = await fetch("/api/insert", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(data),
+                });
+              }
+            }
+            window.location.reload(true);
+          }, 5000);
+        }
+        reloadPage();
+      </script>
+    </div>
+  </body>
+</html>
