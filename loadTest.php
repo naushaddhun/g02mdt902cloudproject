@@ -14,9 +14,10 @@ function factorial($n) {
 
 // Function to perform a CPU-intensive task for 15 minutes
 function performCpuIntensiveTask() {
+    $sum = 0;
     while (true) {
         for ($i = 1; $i <= 100000000; $i++) {
-            factorial($i);
+            $sum += factorial($i);
         }
 
         // Check if 15 minutes have elapsed
@@ -24,14 +25,16 @@ function performCpuIntensiveTask() {
             break;
         }
     }
+    return $sum;
 }
 
 // Execute the task
-performCpuIntensiveTask();
+$result = performCpuIntensiveTask();
 
 // Return a response
 echo json_encode([
     'success' => true,
     'message' => 'CPU-intensive task (factorial calculations) completed after 15 minutes',
+    'result' => $result,
 ]);
 
