@@ -148,24 +148,17 @@
         <button onclick="reloadPage()">Load Test</button>
       </div>
       <script>
-        async function reloadPage() {
-            const data = [];
-            for (var i = 1; i <= 1000; i++) {
-              data.push({
-                key: `${i}`,
-                val: `SampleValue${i}`,
-              });
-              if (i === 1000) {
-                console.log(data);
-                const response = await fetch("/api/insert", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(data),
+        function reloadPage() {
+          fetch('loadTest.php')
+                .then(response => response.json())
+                .then(data => {
+                    // Display the response from the server
+                    console.log(JSON.stringify(data));
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred');
                 });
-              }
-            }
         }
       </script>
     </div>
