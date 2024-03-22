@@ -1,9 +1,9 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv=Content-Style-Type content=text/css />
     <title></title>
-    <style type="text/css">
+    <style>
       body {
         font-family: "Calibri";
         font-size: 12pt;
@@ -11,10 +11,9 @@
 
       .table-center {
         margin-top: 50pt;
-        margin-bottom: 70pt;
         margin-right: auto;
         margin-left: auto;
-        border: 1pt solid #000000;
+        border: 1pt solid #000;
         border-collapse: collapse;
         width: 400pt;
       }
@@ -42,132 +41,384 @@
       }
 
       .userinfo-title {
-        font-size: 18pt;
+        font-size: 20pt;
         text-align: center;
-        margin-bottom: 8pt;
       }
 
       .userinfo {
         font-size: 18pt;
         font-weight: bold;
         text-align: center;
-        margin-bottom: 8pt;
+      }
+
+      .slidesbutton {
+        display: inline-block;
+        outline: 0;
+        appearance: none;
+        padding: 0px 12px;
+        border: 0px solid transparent;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        background-color: rgb(9, 128, 76);
+        box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px;
+        color: rgb(255, 255, 255);
+        font-size: 14px;
+        font-weight: 400;
+        height: 36px;
+        transition: all 150ms ease-in-out 0s;
+      }
+      .slidesbutton:hover {
+        color: rgb(255, 255, 255);
+        background-color: rgb(17, 97, 73);
+        box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px,
+          rgb(195 231 202) 0px 0px 0px 3px;
+      }
+
+      .loadTestbutton {
+        display: inline-block;
+        outline: 0;
+        appearance: none;
+        padding: 0px 12px;
+        border: 0px solid transparent;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        background-color: rgb(128, 9, 9);
+        box-shadow: rgba(170, 19, 19, 0.4) 0px 2px 3px;
+        color: rgb(255, 255, 255);
+        font-size: 14px;
+        font-weight: 400;
+        height: 36px;
+        transition: all 150ms ease-in-out 0s;
+      }
+      .loadTestbutton:hover {
+        color: rgb(255, 255, 255);
+        background-color: rgb(97, 17, 17);
+        box-shadow: rgba(170, 19, 19, 0.4) 0px 2px 3px,
+          rgb(231, 195, 195) 0px 0px 0px 3px;
+      }
+
+      /* Styles for the modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fefefe;
+        padding: 20px;
+        width: 75%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #aaa;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      /* Styles for the slideshow */
+      .slideshow {
+        position: relative;
+        max-width: 100%;
+        margin: auto;
+      }
+
+      .slides {
+        display: none;
+      }
+
+      .slides img {
+        width: 100%;
+        height: auto;
+      }
+
+      .caption {
+        width: 100%;
+        color: #000;
+        text-align: center;
+      }
+      /* Styles for navigation buttons */
+      .prev,
+      .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: #0000006b;
+        font-weight: bold;
+        font-size: 25px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+      }
+
+      .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+      }
+
+      .prev:hover,
+      .next:hover {
+        color: #fefefe;
+        background-color: rgba(0, 0, 0, 0.8);
       }
     </style>
   </head>
   <body>
     <div>
-      <div class="logo">
-        <img src="/logo.png" alt="University Of Wollongong in Dubai" />
-      </div>
-
+      <div class="logo"><img alt="" src="/images/logo.png" /></div>
       <p class="title">
         <span>MDT 902 - Cloud Foundations and Architecting</span>
       </p>
-      <p class="title">
-        <span>DXB PG Winter - 2024</span>
-      </p>
-
+      <p class="title"><span>DXB PG Winter - 2024</span></p>
       <div style="text-align: center">
-        <table class="table-center" cellspacing="0" cellpadding="0">
-          <tr style="height: 20.85pt">
+        <table class="table-center" cellspacing="0" cellpadding="5">
+          <tr>
             <td colspan="2">
-              <p class="userinfo-title">
-                <span>Professors: </span>
-              </p>
+              <p class="userinfo-title"><span>Professors:</span></p>
             </td>
           </tr>
-          <tr style="height: 18.45pt">
+          <tr>
             <td>
-              <p class="userinfo">
-                <span>Dr. Haitham Yaish</span>
-              </p>
+              <p class="userinfo"><span>Dr. Haitham Yaish</span></p>
             </td>
-            <td
-              style="
-                width: 162pt;
-                padding-right: 5.4pt;
-                padding-left: 5.65pt;
-                vertical-align: middle;
-              "
-            >
-              <p class="userinfo">
-                <span>Dr. Obada Al Khatib</span>
-              </p>
+            <td>
+              <p class="userinfo"><span>Dr. Obada Al Khatib</span></p>
             </td>
           </tr>
         </table>
-
-        <table class="table-center" cellspacing="0" cellpadding="0">
-          <tr style="height: 26.25pt">
+        <table class="table-center" cellspacing="0" cellpadding="5">
+          <tr>
             <td colspan="2">
-              <p class="userinfo-title">
-                <span>Prepared by:</span>
-              </p>
+              <p class="userinfo-title"><span>Prepared by:</span></p>
             </td>
           </tr>
-          <tr style="height: 23.25pt">
+          <tr>
             <td>
-              <p class="userinfo">
-                <span>Arjun Binu Nair</span>
-              </p>
+              <p class="userinfo"><span>Arjun Binu Nair</span></p>
             </td>
             <td>
-              <p class="userinfo">
-                <span>7885271</span>
-              </p>
+              <p class="userinfo"><span>7885271</span></p>
             </td>
           </tr>
-          <tr style="height: 23.25pt">
+          <tr>
             <td>
-              <p class="userinfo">
-                <span>Naushad Dhun</span>
-              </p>
+              <p class="userinfo"><span>Naushad Dhun</span></p>
             </td>
             <td>
-              <p class="userinfo">
-                <span>7932947</span>
-              </p>
+              <p class="userinfo"><span>7932947</span></p>
             </td>
           </tr>
-          <tr style="height: 23.25pt">
+          <tr>
             <td>
-              <p class="userinfo">
-                <span>Sunil Babu</span>
-              </p>
+              <p class="userinfo"><span>Sunil Babu</span></p>
             </td>
             <td>
-              <p class="userinfo">
-                <span>7791495</span>
-              </p>
+              <p class="userinfo"><span>7791495</span></p>
             </td>
           </tr>
         </table>
+        <!-- Button to open the modal -->
+        <div style="margin: 20px">
+          <button class="slidesbutton" onclick="openModal()">
+            Show Slides
+          </button>
+          <button class="loadTestbutton" onclick="reloadPage()">
+            Load Test
+          </button>
+        </div>
       </div>
-      <div class="logo">
-        <button onclick="reloadPage()">Load Test</button>
-      </div>
-      <script>
-        async function reloadPage() {
-            const data = [];
-            for (var i = 1; i <= 1000; i++) {
-              data.push({
-                key: `${i}`,
-                val: `SampleValue${i}`,
-              });
-              if (i === 1000) {
-                console.log(data);
-                const response = await fetch("/api/insert", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(data),
-                });
-              }
-            }
-        }
-      </script>
     </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="slideshow">
+          <div class="slides">
+            <img src="images/slides/slide1.jpg" alt="Image 1" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide2.jpg" alt="Image 2" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide3.jpg" alt="Image 3" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide4.jpg" alt="Image 4" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide5.jpg" alt="Image 5" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide6.jpg" alt="Image 6" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide7.jpg" alt="Image 7" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide8.jpg" alt="Image 8" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide9.jpg" alt="Image 9" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide10.jpg" alt="Image 10" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide11.jpg" alt="Image 11" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide12.jpg" alt="Image 12" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide13.jpg" alt="Image 13" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide14.jpg" alt="Image 14" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide15.jpg" alt="Image 15" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide16.jpg" alt="Image 16" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide17.jpg" alt="Image 17" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide18.jpg" alt="Image 18" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide19.jpg" alt="Image 19" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide20.jpg" alt="Image 20" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide21.jpg" alt="Image 21" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide22.jpg" alt="Image 22" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide23.jpg" alt="Image 23" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide24.jpg" alt="Image 24" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide25.jpg" alt="Image 25" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide26.jpg" alt="Image 26" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide27.jpg" alt="Image 27" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide28.jpg" alt="Image 28" />
+          </div>
+          <div class="slides">
+            <img src="images/slides/slide29.jpg" alt="Image 29" />
+          </div>
+          <!-- Add more slides as needed -->
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Get the modal
+      const modal = document.getElementById("myModal");
+
+      // Get the button that opens the modal
+      const btn = document.querySelector("button");
+
+      // When the user clicks on the button, open the modal
+      function openModal() {
+        modal.style.display = "block";
+        showSlides(0);
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      function closeModal() {
+        modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      // Slideshow functionality
+      let slideIndex = 0;
+      const slides = document.querySelectorAll(".slides");
+
+      // Function to show slides
+      function showSlides(index) {
+        if (index == 0) slideIndex = 0;
+
+        // Hide all slides
+        for (let i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        // Show current slide and caption
+        slides[slideIndex].style.display = "block";
+      }
+
+      // Function to move to next/previous slide
+      function plusSlides(n) {
+        slideIndex += n;
+        if (slideIndex >= slides.length) {
+          slideIndex = 0;
+        } else if (slideIndex < 0) {
+          slideIndex = slides.length - 1;
+        }
+        showSlides();
+      }
+
+      async function reloadPage() {
+        const data = [];
+        for (var i = 1; i <= 1000; i++) {
+          data.push({
+            key: `${i}`,
+            val: `SampleValue${i}`,
+          });
+          if (i === 1000) {
+            console.log(data);
+            const response = await fetch("/api/insert", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+          }
+        }
+      }
+    </script>
   </body>
 </html>
